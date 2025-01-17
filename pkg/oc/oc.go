@@ -2,6 +2,7 @@ package oc
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"slices"
 	"strings"
@@ -48,6 +49,20 @@ func DeleteProject(ns string) {
 
 func DeleteProjectIgnoreErors(ns string) {
 	log.Printf("output: %s\n", cmd.Run("oc", "delete", "project", ns).Stdout())
+}
+
+func SwitchToProject(ns string) error {
+	// Switch to the project using the "oc project <project-name>" command
+	log.Printf("Switching to project %s", ns)
+	result := cmd.MustSucceed("oc", "project", ns)
+
+	// Check if the switch was successful and return any errors if occurred
+	if result.ExitCode != 0 {
+		return fmt.Errorf("failed to switch to project %s: %s", ns, result.Stderr())
+	}
+
+	log.Printf("Successfully switched to project %s", ns)
+	return nil
 }
 
 func LinkSecretToSA(secretname, sa, namespace string) {

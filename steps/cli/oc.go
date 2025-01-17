@@ -168,9 +168,13 @@ var _ = gauge.Step("Update addon config with resolverStepActions as <resolverSte
 var _ = gauge.Step("Create project <projectName>", func(projectName string) {
 	log.Printf("Check if project %v already exists", projectName)
 	if oc.CheckProjectExists(projectName) {
-		log.Printf("Switch to project %v", projectName)
+		log.Printf("Project %v already exists. Switching to this project.", projectName)
+		err := oc.SwitchToProject(projectName)
+		if err != nil {
+			log.Printf("Failed to switch to project %v: %v", projectName, err)
+		}
 	} else {
-		log.Printf("Creating project %v", projectName)
+		log.Printf("Project %v does not exist. Creating it now...", projectName)
 		oc.CreateNewProject(projectName)
 	}
 	store.Clients().NewClientSet(projectName)
