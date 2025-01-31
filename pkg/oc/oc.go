@@ -47,7 +47,7 @@ func DeleteProject(ns string) {
 }
 
 func DeleteProjectIgnoreErors(ns string) {
-	log.Printf("output: %s\n", cmd.Run("oc", "delete", "project", ns).Stdout())
+	log.Printf("output: %s\n", cmd.RunIncreasedTimeout(time.Second*180, "oc", "delete", "project", ns).Stdout())
 }
 
 func LinkSecretToSA(secretname, sa, namespace string) {
