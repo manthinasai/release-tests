@@ -5,6 +5,7 @@ Pre condition:
   * Delete project "releasetest-tasks"
   * Delete project "releasetest-pipelines"
   * Delete project "releasetest-pipelineruns"
+  * Delete project "releasetest-pipelineruns-2"
 
 ## Checking the functionality of cluster resolvers#1: PIPELINES-23-TC01
 Tags: e2e, sanity
@@ -16,19 +17,19 @@ Importance: High
 Steps:
     * Create project "releasetest-tasks"
     * Verify ServiceAccount "pipeline" exist
-    * Create
+    * Apply
       |S.NO|resource_dir                                                |
       |----|------------------------------------------------------------|
       |1   |testdata/resolvers/tasks/resolver-task2.yaml                |
     * Create project "releasetest-pipelines"
     * Verify ServiceAccount "pipeline" exist
-    * Create
+    * Apply
       |S.NO|resource_dir                                                |
       |----|------------------------------------------------------------|
       |1   |testdata/resolvers/pipelines/resolver-pipeline.yaml         |
     * Create project "releasetest-pipelineruns"
     * Verify ServiceAccount "pipeline" exist
-    * Create
+    * Apply
       |S.NO|resource_dir                                                              |
       |----|--------------------------------------------------------------------------|
       |1   |testdata/resolvers/pipelineruns/resolver-pipelinerun.yaml                 |
@@ -36,9 +37,13 @@ Steps:
       |S.NO|pipeline_run_name                  |status      |check_label_propagation  |
       |----|-----------------------------------|--------------------------------------|
       |1   |resolver-pipelinerun               |successful  |no                       |
+    * Delete resolver pod 
+    * Display namespace yaml
+    * Display taskrun
+    * Delete taskruns in releasetest-pipelineruns
     * Delete project "releasetest-tasks"
     * Delete project "releasetest-pipelines"
-    * Delete project "releasetest-pipelineruns"          
+    * Delete project "releasetest-pipelineruns"     
 
 ## Checking the functionality of cluster resolvers#2: PIPELINES-23-TC02
 Tags: e2e
@@ -50,13 +55,13 @@ Importance: High
 Steps: 
     * Create project "releasetest-tasks"
     * Verify ServiceAccount "pipeline" exist
-    * Create 
+    * Apply 
       |S.NO|resource_dir                                                |
       |----|------------------------------------------------------------|            
       |1   |testdata/resolvers/tasks/resolver-task.yaml                 |
-    * Create project "releasetest-pipelineruns"
+    * Create project "releasetest-pipelineruns-2"
     * Verify ServiceAccount "pipeline" exist
-    * Create
+    * Apply
       |S.NO|resource_dir                                                              |
       |----|--------------------------------------------------------------------------|
       |1   |testdata/resolvers/pipelines/resolver-pipeline-same-ns.yaml               |
@@ -65,5 +70,9 @@ Steps:
       |S.NO|pipeline_run_name                  |status      |check_label_propagation  |
       |----|-----------------------------------|--------------------------------------|
       |1   |resolver-pipelinerun-same-ns       |successful  |no                       |
+    * Delete resolvertask pod 
+    * Display namespace yaml
+    * Display taskrun
+    * Delete taskruns in releasetest-pipelineruns
     * Delete project "releasetest-tasks"
-    * Delete project "releasetest-pipelineruns"
+    * Delete project "releasetest-pipelineruns-2"

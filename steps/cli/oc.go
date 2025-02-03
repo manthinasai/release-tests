@@ -11,6 +11,7 @@ import (
 	"github.com/getgauge-contrib/gauge-go/gauge"
 	m "github.com/getgauge-contrib/gauge-go/models"
 	"github.com/getgauge-contrib/gauge-go/testsuit"
+	"github.com/openshift-pipelines/release-tests/pkg/cmd"
 	"github.com/openshift-pipelines/release-tests/pkg/oc"
 	"github.com/openshift-pipelines/release-tests/pkg/openshift"
 	"github.com/openshift-pipelines/release-tests/pkg/store"
@@ -182,6 +183,11 @@ var _ = gauge.Step("Delete project <projectName>", func(projectName string) {
 	oc.DeleteProjectIgnoreErors(projectName)
 })
 
+var _ = gauge.Step("Force delete project <projectName>", func(projectName string) {
+	log.Printf("Force Deleting project %v", projectName)
+	oc.ForceDeleteProjectIgnoreErors(projectName)
+})
+
 var _ = gauge.Step("Link secret <secret> to service account <sa>", func(secret, sa string) {
 	oc.LinkSecretToSA(secret, sa, store.Namespace())
 })
@@ -239,4 +245,24 @@ var _ = gauge.Step("Enable console plugin", func() {
 var _ = gauge.Step("Enable statefulset in tektonconfig", func() {
 	patch_data := "{\"spec\":{\"pipeline\":{\"performance\":{\"disable-ha\":false,\"statefulset-ordinals\":true,\"replicas\":2,\"buckets\":2}}}}"
 	oc.UpdateTektonConfig(patch_data)
+})
+
+var _ = gauge.Step("Delete resolver pod", func() {
+	oc.DeleteResource("pod", "resolver-pipelinerun-resolver-task2-pod")
+})
+
+var _ = gauge.Step("Delete resolvertask pod", func() {
+	oc.DeleteResource("pod", "resolver-pipelinerun-same-ns-resolver-task-pod")
+})
+
+var _ = gauge.Step("Display namespace yaml", func() {
+	log.Printf("Output:%s \n", cmd.Run("oc", "get", "ns", "releasetest-pipelineruns", "-o", "yaml").Stdout())
+})
+
+var _ = gauge.Step("Display taskrun", func() {
+	log.Printf("Output:%s \n", cmd.Run("oc", "get", "taskrun", "-n", "releasetest-pipelineruns").Stdout())
+})
+
+var _ = gauge.Step("Delete taskruns in releasetest-pipelineruns", func() {
+	log.Printf("Output:%s \n", cmd.Run("oc", "delete", "taskrun", "--all", "-n", "releasetest-pipelineruns").Stdout())
 })

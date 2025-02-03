@@ -50,6 +50,10 @@ func DeleteProjectIgnoreErors(ns string) {
 	log.Printf("output: %s\n", cmd.Run("oc", "delete", "project", ns).Stdout())
 }
 
+func ForceDeleteProjectIgnoreErors(ns string) {
+	log.Printf("output: %s\n", cmd.Run("oc", "delete", "project", ns, "--grace-period=0", "--force").Stdout())
+}
+
 func LinkSecretToSA(secretname, sa, namespace string) {
 	log.Printf("output: %s\n", cmd.MustSucceed("oc", "secret", "link", "serviceaccount/"+sa, "secrets/"+secretname, "-n", namespace).Stdout())
 }
