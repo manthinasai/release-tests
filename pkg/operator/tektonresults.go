@@ -2,6 +2,7 @@ package operator
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -41,6 +42,9 @@ func GetResultsAnnotations(resourceType string) (string, string, string) {
 	var result_uuid string = cmd.MustSucceed("tkn", resourceType, "describe", "--last", "-o", "jsonpath='{.metadata.annotations.results\\.tekton\\.dev/result}'").Stdout()
 	var record_uuid string = cmd.MustSucceed("tkn", resourceType, "describe", "--last", "-o", "jsonpath='{.metadata.annotations.results\\.tekton\\.dev/record}'").Stdout()
 	var stored string = cmd.MustSucceed("tkn", resourceType, "describe", "--last", "-o", "jsonpath='{.metadata.annotations.results\\.tekton\\.dev/stored}'").Stdout()
+	log.Printf("Stored: %s\n", stored)
+	log.Printf("result_uuid: %s\n", result_uuid)
+	log.Printf("record_uuid: %s\n", record_uuid)
 	record_uuid = strings.ReplaceAll(record_uuid, "'", "")
 	result_uuid = strings.ReplaceAll(result_uuid, "'", "")
 	stored = strings.ReplaceAll(stored, "'", "")
@@ -73,8 +77,12 @@ func VerifyResultsLogs(resourceType string) {
 	if record_uuid == "" {
 		testsuit.T.Fail(fmt.Errorf("Annotation results.tekton.dev/record is not set"))
 	}
-
+	curl_api := cmd.Run("curl", "-k", results_api).Stdout()
+	log.Printf("Curl API: %s\n", curl_api)
+	ResultsRunData := cmd.Run("opc", "results", "logs", "get", "--insecure", "--addr", results_api, record_uuid).Stdout()
+	log.Printf("ResultsRunData: %s\n", ResultsRunData)
 	var resultsJsonData string = cmd.MustSucceed("opc", "results", "logs", "get", "--insecure", "--addr", results_api, record_uuid).Stdout()
+	log.Printf("resultsJsonData: %s\n", resultsJsonData)
 	if strings.Contains(resultsJsonData, "record not found") {
 		testsuit.T.Errorf("Results log not found")
 	} else {
@@ -88,6 +96,7 @@ func VerifyResultsLogs(resourceType string) {
 			testsuit.T.Errorf("Error parsing JSON")
 		}
 		decodedResultsLogs, err := base64.StdEncoding.Strict().DecodeString(resultLogs.Data)
+		log.Printf("Decoded results logs: %s\n", decodedResultsLogs)
 		if err != nil {
 			testsuit.T.Errorf("Error decoding base64 data")
 		}
