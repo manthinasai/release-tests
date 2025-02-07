@@ -184,6 +184,7 @@ func StartPipeline(pipelineName string, params map[string]string, workspaces map
 	}
 	commandArgs = append(commandArgs, args...)
 	commandArgs = strings.Split(strings.Join(commandArgs, " "), " ")
+	log.Printf("Command args are: %v\n", commandArgs)
 	pipelineRunName := strings.Trim(cmd.MustSucceed(commandArgs...).Stdout(), "\n")
 	log.Printf("Pipelinerun %s started", pipelineRunName)
 	return pipelineRunName

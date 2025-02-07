@@ -16,7 +16,10 @@ import (
 	"github.com/openshift-pipelines/release-tests/pkg/clients"
 	"github.com/openshift-pipelines/release-tests/pkg/cmd"
 	"github.com/openshift-pipelines/release-tests/pkg/config"
+	resource "github.com/openshift-pipelines/release-tests/pkg/config"
 	"github.com/openshift-pipelines/release-tests/pkg/k8s"
+	"github.com/openshift-pipelines/release-tests/pkg/oc"
+	"github.com/openshift-pipelines/release-tests/pkg/store"
 	"github.com/openshift-pipelines/release-tests/pkg/wait"
 	"github.com/tektoncd/cli/pkg/cli"
 	clipr "github.com/tektoncd/cli/pkg/cmd/pipelinerun"
@@ -397,4 +400,17 @@ func GetLatestPipelinerun(c *clients.Clients, namespace string) (string, error) 
 	prsort.SortByStartTime(prs.Items)
 	return prs.Items[0].Name, nil
 
+}
+
+func StartPipelineRunWithTemplate(inputFile string, pipelineName string, params map[string]string, workspaceName string, claimName string) {
+	updatedYaml, err := ReadandUpdateYamlFile(inputFile, pipelineName, params, workspaceName, claimName)
+	log.Print("Updated yaml is\n", string(updatedYaml))
+	if err != nil {
+		log.Fatalf("Error updating YAML: %v", err)
+	}
+	err = os.WriteFile(resource.Path(inputFile), updatedYaml, 0600)
+	if err != nil {
+		log.Fatalf("Error writing updated YAML to file: %v", err)
+	}
+	oc.Apply(inputFile, store.Namespace())
 }
