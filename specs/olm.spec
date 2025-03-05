@@ -19,13 +19,13 @@ Steps:
     | S.NO | resource_dir                   |
     |------|--------------------------------|
     | 1    | testdata/hub/tektonhub.yaml    |
-  * Configure Results with Loki
-  * Create Results route
   * Create signing-secrets for Tekton Chains
   * Configure GitHub token for git resolver in TektonConfig
   * Configure the bundles resolver
   * Enable console plugin
   * Enable statefulset in tektonconfig
+  * Configure Results with Loki
+  * Create Results route
   * Validate triggers deployment
   * Validate PAC deployment
   * Validate chains deployment
