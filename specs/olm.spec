@@ -30,10 +30,10 @@ Steps:
   * Validate hub deployment
   * Validate "tekton-pipelines-controller" statefulset deployment
   * Validate "tekton-pipelines-remote-resolvers" statefulset deployment
-  * Configure Results with Loki
-  * Create Results route
   * Validate tkn server cli deployment
   * Validate console plugin deployment
+  * Configure Results with Loki
+  * Create Results route
   * Ensure that Tekton Results is ready
   * Verify TektonAddons Install status
   * Validate RBAC
