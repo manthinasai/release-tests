@@ -28,10 +28,10 @@ Steps:
   * Validate PAC deployment
   * Validate chains deployment
   * Validate hub deployment
-  * Configure Results with Loki
-  * Create Results route
   * Validate "tekton-pipelines-controller" statefulset deployment
   * Validate "tekton-pipelines-remote-resolvers" statefulset deployment
+  * Configure Results with Loki
+  * Create Results route
   * Validate tkn server cli deployment
   * Validate console plugin deployment
   * Ensure that Tekton Results is ready
