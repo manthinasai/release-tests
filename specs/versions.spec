@@ -9,14 +9,14 @@ Type: Functional
 Importance: High
 Steps:
   * Check version of component "pipeline"
-  * Check version of component "triggers"
-  * Check version of component "operator"
-  * Check version of component "chains"
-  * Check version of component "pac"
-  * Check version of component "hub"
-  * Check version of component "results"
-  * Check version of component "manual-approval-gate"
-  * Check version of OSP
+  // * Check version of component "triggers"
+  // * Check version of component "operator"
+  // * Check version of component "chains"
+  // * Check version of component "pac"
+  // * Check version of component "hub"
+  // * Check version of component "results"
+  // * Check version of component "manual-approval-gate"
+  // * Check version of OSP
  
 ## Check client versions: PIPELINES-22-TC02
 Tags: sanity

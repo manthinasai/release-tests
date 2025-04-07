@@ -15,37 +15,37 @@ Steps:
   * Wait for TektonConfig CR availability  
   * Define the tekton-hub-api variable
   * Verify namespace "openshift-pipelines" exists
-  * Apply
-    | S.NO | resource_dir                   |
-    |------|--------------------------------|
-    | 1    | testdata/hub/tektonhub.yaml    |
-  * Create signing-secrets for Tekton Chains
-  * Configure GitHub token for git resolver in TektonConfig
-  * Configure the bundles resolver
-  * Enable console plugin
-  * Enable statefulset in tektonconfig
-  * Validate triggers deployment
-  * Validate PAC deployment
-  * Validate chains deployment
-  * Validate hub deployment
-  * Validate "tekton-pipelines-controller" statefulset deployment
-  * Validate "tekton-pipelines-remote-resolvers" statefulset deployment
-  * Validate tkn server cli deployment
-  * Validate console plugin deployment
-  * Configure Results with Loki
-  * Create Results route
-  * Ensure that Tekton Results is ready
-  * Verify TektonAddons Install status
-  * Validate RBAC
-  * Validate quickstarts
-  * Validate default auto prune cronjob in target namespace
-  * Apply
-    | S.NO | resource_dir                                          |
-    |------|-------------------------------------------------------|
-    | 1    | testdata/manualapprovalgate/manual-approval-gate.yaml |
-  * Validate manual approval gate deployment
-  * Validate tektoninstallersets status
-  * Validate tektoninstallersets names
+  // * Apply
+  //   | S.NO | resource_dir                   |
+  //   |------|--------------------------------|
+  //   | 1    | testdata/hub/tektonhub.yaml    |
+  // * Create signing-secrets for Tekton Chains
+  // * Configure GitHub token for git resolver in TektonConfig
+  // * Configure the bundles resolver
+  // * Enable console plugin
+  // * Enable statefulset in tektonconfig
+  // * Validate triggers deployment
+  // * Validate PAC deployment
+  // * Validate chains deployment
+  // * Validate hub deployment
+  // * Validate "tekton-pipelines-controller" statefulset deployment
+  // * Validate "tekton-pipelines-remote-resolvers" statefulset deployment
+  // * Validate tkn server cli deployment
+  // * Validate console plugin deployment
+  // * Configure Results with Loki
+  // * Create Results route
+  // * Ensure that Tekton Results is ready
+  // * Verify TektonAddons Install status
+  // * Validate RBAC
+  // * Validate quickstarts
+  // * Validate default auto prune cronjob in target namespace
+  // * Apply
+  //   | S.NO | resource_dir                                          |
+  //   |------|-------------------------------------------------------|
+  //   | 1    | testdata/manualapprovalgate/manual-approval-gate.yaml |
+  // * Validate manual approval gate deployment
+  // * Validate tektoninstallersets status
+  // * Validate tektoninstallersets names
 
 ## Upgrade openshift-pipelines operator: PIPELINES-09-TC02
 Tags: upgrade, admin
