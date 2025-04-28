@@ -43,6 +43,7 @@ func NewClientSet() (*clients.Clients, string, func()) {
 	}
 
 	oc.CreateNewProject(ns)
+
 	return cs, ns, func() {
 		oc.DeleteProjectIgnoreErors(ns)
 	}
