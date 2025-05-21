@@ -51,6 +51,7 @@ spec:
     taskSpec:
       steps:
       - name: set-python-venv
+        imagePullPolicy: Always
         image: $(params.image)
         script: |
           echo "Setting python venv to $(workspaces.source.path)/cache"
