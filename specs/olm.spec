@@ -24,6 +24,7 @@ Steps:
   * Configure the bundles resolver
   * Enable console plugin
   * Enable statefulset in tektonconfig
+  * Enable results statefulset in tektonconfig
   * Validate triggers deployment
   * Validate PAC deployment
   * Validate chains deployment
