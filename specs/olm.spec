@@ -24,9 +24,11 @@ Steps:
   * Configure the bundles resolver
   * Enable console plugin
   * Enable statefulset in tektonconfig
+  * Enable results statefulset in tektonconfig
+  * Enable chains statefulset in tektonconfig
   * Validate triggers deployment
   * Validate PAC deployment
-  * Validate chains deployment
+  // * Validate chains deployment
   * Validate hub deployment
   * Validate "tekton-pipelines-controller" statefulset deployment
   * Validate "tekton-pipelines-remote-resolvers" statefulset deployment

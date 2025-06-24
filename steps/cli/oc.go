@@ -260,6 +260,16 @@ var _ = gauge.Step("Enable statefulset in tektonconfig", func() {
 	oc.UpdateTektonConfig(patch_data)
 })
 
+var _ = gauge.Step("Enable results statefulset in tektonconfig", func() {
+	patch_data := "{\"spec\":{\"result\":{\"performance\":{\"disable-ha\":false,\"statefulset-ordinals\":true,\"replicas\":2,\"buckets\":2}}}}"
+	oc.UpdateTektonConfig(patch_data)
+})
+
+var _ = gauge.Step("Enable chains statefulset in tektonconfig", func() {
+	patch_data := "{\"spec\":{\"chain\":{\"performance\":{\"disable-ha\":false,\"statefulset-ordinals\":true,\"replicas\":2,\"buckets\":2}}}}"
+	oc.UpdateTektonConfig(patch_data)
+})
+
 var _ = gauge.Step("Configure Results with Loki", func() {
 	patch_data := "{\"spec\":{\"result\":{\"auth_disable\":true,\"disabled\":false,\"log_level\":\"debug\",\"loki_stack_name\":\"logging-loki\",\"loki_stack_namespace\":\"openshift-logging\"}}}"
 	oc.UpdateTektonConfig(patch_data)
