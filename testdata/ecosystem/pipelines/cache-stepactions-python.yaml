@@ -18,7 +18,7 @@ spec:
       default: ["**requirment.txt"]
     - name: image
       type: string
-      default: quay.io/openshift-pipeline/ci:latest
+      default: image-registry.openshift-image-registry.svc:5000/openshift/python:3.12-ubi9
     - name: force-cache-upload
       type: string
       default: "false"
@@ -74,13 +74,13 @@ spec:
           - name: kind
             value: stepaction
         params:
-          - name: patterns
+          - name: PATTERNS
             value: $(params.cachePatterns)
-          - name: source
+          - name: SOURCE
             value: oci://$(params.registry):{{hash}}
-          - name: cachePath
+          - name: CACHE_PATH
             value: $(workspaces.source.path)/cache/lib
-          - name: workingdir
+          - name: WORKING_DIR
             value: $(workspaces.source.path)/repo
       - name: check-fetch-result
         image: $(params.image)
@@ -130,17 +130,17 @@ spec:
           - name: kind
             value: stepaction
         params:
-          - name: patterns
+          - name: PATTERNS
             value: $(params.cachePatterns)
-          - name: target
+          - name: TARGET
             value: oci://$(params.registry):{{hash}}
-          - name: cachePath
+          - name: CACHE_PATH
             value: $(workspaces.source.path)/cache/lib
-          - name: workingdir
+          - name: WORKING_DIR
             value: $(workspaces.source.path)/repo
-          - name: force-cache-upload
+          - name: FORCE_CACHE_UPLOAD
             value: $(params.force-cache-upload)
-          - name: fetched
+          - name: FETCHED
             value: $(tasks.cache-fetch.results.fetched)
     runAfter:
     - run-build
