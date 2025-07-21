@@ -19,7 +19,6 @@ Steps:
     | S.NO | resource_dir                   |
     |------|--------------------------------|
     | 1    | testdata/hub/tektonhub.yaml    |
-  * Create signing-secrets for Tekton Chains
   * Configure GitHub token for git resolver in TektonConfig
   * Configure the bundles resolver
   * Enable console plugin
@@ -27,6 +26,7 @@ Steps:
   * Validate triggers deployment
   * Validate PAC deployment
   * Validate chains deployment
+  * Enable generateSigningSecret for Tekton Chains in TektonConfig
   * Validate hub deployment
   * Validate "tekton-pipelines-controller" statefulset deployment
   * Validate "tekton-pipelines-remote-resolvers" statefulset deployment
