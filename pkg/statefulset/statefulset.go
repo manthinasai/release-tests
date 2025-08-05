@@ -14,18 +14,7 @@ import (
 )
 
 func ValidateStatefulSetDeployment(cs *clients.Clients, deploymentName string) {
-	var labelSelector string
-	switch deploymentName {
-	case "tekton-pipelines-controller":
-	case "tekton-pipelines-remote-resolvers":
-		labelSelector = "app.kubernetes.io/part-of=tekton-pipelines"
-	case "tekton-chains-controller":
-		labelSelector = "app.kubernetes.io/part-of=tekton-chains"
-	case "tekton-results-watcher":
-		labelSelector = "app.kubernetes.io/name=tekton-results-watcher"
-	default:
-		log.Printf("No labelSelector found for deployment: %s", deploymentName)
-	}
+	labelSelector := "app.kubernetes.io/part-of=tekton-pipelines"
 	listOptions := metav1.ListOptions{LabelSelector: labelSelector}
 
 	log.Printf("Starting validation for StatefulSet deployment: %s in namespace: %s", deploymentName, config.TargetNamespace)
