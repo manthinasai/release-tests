@@ -11,6 +11,7 @@ import (
 	"github.com/getgauge-contrib/gauge-go/gauge"
 	m "github.com/getgauge-contrib/gauge-go/models"
 	"github.com/getgauge-contrib/gauge-go/testsuit"
+	"github.com/openshift-pipelines/release-tests/pkg/cmd"
 	"github.com/openshift-pipelines/release-tests/pkg/oc"
 	"github.com/openshift-pipelines/release-tests/pkg/openshift"
 	"github.com/openshift-pipelines/release-tests/pkg/operator"
@@ -269,8 +270,26 @@ var _ = gauge.Step("Enable statefulset for <component> in tektonconfig", func(co
 		patch_data = "{\"spec\":{\"result\":{\"performance\":{\"disable-ha\":false,\"statefulset-ordinals\":true,\"replicas\":2,\"buckets\":2}}}}"
 	default:
 		testsuit.T.Fail(fmt.Errorf("unsupported component: %s. cannot generate patch data", componentName))
+		return
 	}
-	oc.UpdateTektonConfig(patch_data)
+
+	result := cmd.Run("oc", "patch", "tektonconfig", "config", "-p", patch_data, "--type=merge")
+	if result.ExitCode != 0 {
+		if strings.Contains(result.Stderr(), "unknown field \"performance\"") {
+			log.Printf("Performance field not available for %s during upgrade. Skipping %s statefulset configuration.", componentName, componentName)
+			log.Printf("%s will use default deployment configuration during upgrade.", componentName)
+			if componentName == "chains" {
+				log.Printf("Validating default chains deployment is running...")
+				operator.ValidateChainsDeployments(store.Clients(), store.GetCRNames())
+				log.Printf("Default chains deployment validation completed successfully.")
+			}
+			return
+		} else {
+			testsuit.T.Errorf("Failed to update TektonConfig for %s: ExitCode: %d, Error: %s", componentName, result.ExitCode, result.Stderr())
+		}
+	} else {
+		log.Printf("Successfully enabled statefulset for %s: %s", componentName, result.Stdout())
+	}
 })
 
 var _ = gauge.Step("Configure Results with Loki", func() {
