@@ -23,14 +23,14 @@ Steps:
   * Configure the bundles resolver
   * Enable console plugin
   * Enable statefulset in tektonconfig
-  * Enable statefulset for "chains" in tektonconfig
-  * Enable statefulset for "results" in tektonconfig
   * Validate triggers deployment
   * Validate PAC deployment
   * Enable generateSigningSecret for Tekton Chains in TektonConfig
   * Validate hub deployment
   * Validate "tekton-pipelines-controller" statefulset deployment
   * Validate "tekton-pipelines-remote-resolvers" statefulset deployment
+  * Enable statefulset for "chains" in tektonconfig
+  * Enable statefulset for "results" in tektonconfig
   * Validate "tekton-chains-controller" statefulset deployment
   * Validate "tekton-results-watcher" statefulset deployment
   * Validate tkn server cli deployment
