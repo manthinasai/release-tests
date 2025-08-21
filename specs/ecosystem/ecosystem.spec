@@ -365,7 +365,7 @@ Steps:
   * Wait for "test-hello-world" deployment
 
 ## pull-request pipelinerun: PIPELINES-29-TC19
-Tags: e2e, ecosystem, tasks, non-admin, pull-request
+Tags: e2e, ecosystem, tasks, non-admin, pull-request, test-token
 Component: Pipelines
 Level: Integration
 Type: Functional
