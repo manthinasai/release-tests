@@ -75,7 +75,6 @@ gauge run --log-level=debug --verbose --tags 'e2e & linux/amd64' specs/clusterta
 gauge run --log-level=debug --verbose --tags e2e specs/operator/rbac.spec
 gauge run --log-level=debug --verbose --tags e2e specs/operator/auto-prune.spec
 gauge run --log-level=debug --verbose --tags e2e specs/operator/addon.spec
-gauge run --log-level=debug --verbose --tags e2e specs/operator/tekton-pruner.spec
 gauge run --log-level=debug --verbose --tags e2e <specification_path>:<scenario_line_number>
 ```
 
@@ -117,40 +116,6 @@ To run pac e2e tests...
 ```
 gauge run --log-level=debug --verbose --tags e2e specs/pac/pac-gitlab.spec
 ```
-
-### Tekton Pruner tests
-
-The Tekton Pruner spec (`specs/operator/tekton-pruner.spec`) validates the tekton-pruner component: deployment and migration from legacy pruner, webhook validation (negative values, invalid types), global TTL expiry for PipelineRuns and TaskRuns, history limits (successful/failed/mixed), namespace hierarchy (override error, default fallback), and selectors (label match/mismatch, annotation, AND logic).
-
-**Prerequisites:** OpenShift Pipelines operator must be installed. Run as `admin` user.
-
-**Run the full Tekton Pruner spec:**
-
-```
-gauge run --log-level=debug --verbose --tags e2e specs/operator/tekton-pruner.spec
-```
-
-**Run by tag:**
-
-| Tag          | Description |
-|-------------|-------------|
-| `pruner`    | All tekton-pruner scenarios |
-| `deployment`| TC-01: Enable/disable legacy and tekton-pruner, validate deployment |
-| `validation`| TC-02: Webhook negative values and invalid type |
-| `functional`| TC-03–TC-07: TTL expiry, history limits |
-| `hierarchy` | TC-08: Namespace config override error |
-| `selectors` | TC-09–TC-11: Label/annotation selectors, AND logic |
-
-Examples:
-
-```
-gauge run --log-level=debug --verbose --tags 'e2e & pruner' specs/operator/tekton-pruner.spec
-gauge run --log-level=debug --verbose --tags 'e2e & deployment' specs/operator/tekton-pruner.spec
-gauge run --log-level=debug --verbose --tags 'e2e & selectors' specs/operator/tekton-pruner.spec
-```
-
-**Note:** The spec Teardown re-enables the legacy pruner and disables the tekton-pruner. To leave the cluster with tekton-pruner enabled, comment out or skip the Teardown step.
-
 ## Authoring a new test specification
 
 1. Create or update a spec file in `specs` directory using `Markdown` syntax.
