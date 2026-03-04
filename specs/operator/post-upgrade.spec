@@ -84,3 +84,17 @@ Steps:
   * Switch to project "releasetest-upgrade-s2i"
   * Get tags of the imagestream "golang" from namespace "openshift" and store to variable "golang-tags"
   * Start and verify pipeline "s2i-go-pipeline" with param "VERSION" with values stored in variable "golang-tags" with workspace "name=source,claimName=shared-pvc"
+
+## Check CLI versions post-upgrade: PIPELINES-19-TC06
+Tags: post-upgrade, sanity, cli
+Component: Operator
+Level: Integration
+Type: Functional
+Importance: High
+
+Steps:
+  * Download and extract CLI from cluster
+  * Output "tkn" client version
+  * Output "tkn-pac" version
+  * Output "opc" client version
+  * Output "opc" server version

@@ -139,6 +139,18 @@ var _ = gauge.Step("Download and extract CLI from cluster", func() {
 	opc.DownloadCLIFromCluster()
 })
 
+var _ = gauge.Step("Output <binary> client version", func(binary string) {
+	opc.PrintClientVersion(binary)
+})
+
+var _ = gauge.Step("Output <binary> server version", func(binary string) {
+	opc.PrintServerVersion(binary)
+})
+
+var _ = gauge.Step("Output <binary> version", func(binary string) {
+	opc.PrintClientVersion(binary)
+})
+
 var _ = gauge.Step("Check <binary> client version", func(binary string) {
 	opc.AssertClientVersion(binary)
 })

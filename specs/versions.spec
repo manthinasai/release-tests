@@ -19,14 +19,14 @@ Steps:
   * Check version of OSP
  
 ## Check client versions: PIPELINES-22-TC02
-Tags: sanity
+Tags: sanity, cli, e2e
 Component: Operator
 Level: Integration
 Type: Functional
 Importance: High
-Steps: 
+Steps:
   * Download and extract CLI from cluster
-  * Check "tkn" client version
-  * Check "tkn-pac" version
-  * Check "opc" client version
-  * Check "opc" server version
+  * Output "tkn" client version
+  * Output "tkn-pac" version
+  * Output "opc" client version
+  * Output "opc" server version

@@ -127,3 +127,17 @@ Steps:
       |----|------------------------------------------------------|
       |1   |testdata/ecosystem/pipelines/s2i-go.yaml|
       |2   |testdata/pvc/pvc.yaml                                 |
+
+## Check CLI versions pre-upgrade: PIPELINES-18-TC06
+Tags: pre-upgrade, sanity, cli
+Component: Operator
+Level: Integration
+Type: Functional
+Importance: High
+
+Steps:
+  * Download and extract CLI from cluster
+  * Output "tkn" client version
+  * Output "tkn-pac" version
+  * Output "opc" client version
+  * Output "opc" server version

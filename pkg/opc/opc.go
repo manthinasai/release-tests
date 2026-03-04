@@ -96,6 +96,38 @@ func DownloadCLIFromCluster() {
 	cmd.MustSucceed("tar", "-xf", "/tmp/tkn-binary.tar.gz", "-C", "/tmp")
 }
 
+// PrintClientVersion runs the version command for the given binary and prints output to stdout (no assertion).
+func PrintClientVersion(binary string) {
+	var commandResult string
+	switch binary {
+	case "tkn-pac":
+		commandResult = cmd.MustSucceed("/tmp/tkn-pac", "version").Stdout()
+		fmt.Println("tkn-pac version:\n" + commandResult)
+		return
+	case "tkn":
+		commandResult = cmd.MustSucceed("/tmp/tkn", "version").Stdout()
+		fmt.Println("tkn version:\n" + commandResult)
+		return
+	case "opc":
+		commandResult = cmd.MustSucceed("/tmp/opc", "version").Stdout()
+		fmt.Println("opc version:\n" + commandResult)
+		return
+	default:
+		fmt.Printf("Unknown binary: %s\n", binary)
+		return
+	}
+}
+
+// PrintServerVersion runs opc version --server and prints output to stdout (no assertion).
+func PrintServerVersion(binary string) {
+	if binary != "opc" {
+		fmt.Printf("Server version is only available for opc, got: %s\n", binary)
+		return
+	}
+	commandResult := cmd.MustSucceed("/tmp/opc", "version", "--server").Stdout()
+	fmt.Println("opc version --server:\n" + commandResult)
+}
+
 func AssertClientVersion(binary string) {
 	var commandResult, unexpectedVersion string
 
