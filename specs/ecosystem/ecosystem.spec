@@ -43,14 +43,13 @@ Steps:
       |1   |buildah-disconnected-run|successful|
 
 ## buildah-ns pipelinerun: PIPELINES-29-TC20
-Tags: e2e, ecosystem, tasks, non-admin, buildah-ns, sanity
+Tags: e2e, ecosystem, tasks, non-admin, buildah-ns, sanity, skip-on-ocp-4-20-plus
 Component: Pipelines
 Level: Integration
 Type: Functional
 Importance: Critical
 
 Steps:
-  * Skip if OCP >= "4.20" (Bug: "SRVKP-11139")
   * Create
       |S.NO|resource_dir                                     |
       |----|-------------------------------------------------|
