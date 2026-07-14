@@ -127,3 +127,12 @@ Steps:
       |----|------------------------------------------------------|
       |1   |testdata/ecosystem/pipelines/s2i-go.yaml|
       |2   |testdata/pvc/pvc.yaml                                 |
+
+## Capture OLM skipRange before upgrade: PIPELINES-18-TC06
+Tags: pre-upgrade, olm
+Component: Operator
+Level: Integration
+Type: Functional
+Importance: Critical
+Steps:
+  * Get OlmSkipRange for "pre-upgrade" and store in "testdata/olm/skiprange.json"

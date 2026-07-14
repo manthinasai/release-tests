@@ -206,3 +206,19 @@ var _ = gauge.Step("Store Cosign public key in file", func() {
 var _ = gauge.Step("Verify <binary> version from the pipelinerun logs", func(binary string) {
 	pipelines.CheckLogVersion(store.Clients(), binary, store.Namespace())
 })
+
+var _ = gauge.Step("Validate OSP Version in OlmSkipRange", func() {
+	oc.ValidateOlmSkipRange()
+})
+
+var _ = gauge.Step("Get OlmSkipRange for <upgradeType> and store in <fileName>", func(upgradeType, fileName string) {
+	oc.GetOlmSkipRange(upgradeType, fileName)
+})
+
+var _ = gauge.Step("Validate OlmSkipRange diff from file <fileName>", func(fileName string) {
+	oc.ValidateOlmSkipRangeDiff(fileName)
+})
+
+var _ = gauge.Step("Validate all channels have valid skipRange bounds", func() {
+	oc.ValidateChannelSkipRangeBounds()
+})

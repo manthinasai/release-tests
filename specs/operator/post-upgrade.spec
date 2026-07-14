@@ -84,3 +84,13 @@ Steps:
   * Switch to project "releasetest-upgrade-s2i"
   * Get tags of the imagestream "golang" from namespace "openshift" and store to variable "golang-tags"
   * Start and verify pipeline "s2i-go-pipeline" with param "VERSION" with values stored in variable "golang-tags" with workspace "name=source,claimName=shared-pvc"
+
+## Validate OLM skipRange after upgrade: PIPELINES-19-TC06
+Tags: post-upgrade, olm
+Component: Operator
+Level: Integration
+Type: Functional
+Importance: Critical
+Steps:
+  * Get OlmSkipRange for "post-upgrade" and store in "testdata/olm/skiprange.json"
+  * Validate OlmSkipRange diff from file "testdata/olm/skiprange.json"
