@@ -178,13 +178,16 @@ func CopySecret(secretName string, sourceNamespace string, destNamespace string)
 }
 
 func FetchOlmSkipRange() (map[string]string, error) {
-	// Determine catalog based on OPERATOR_ENVIRONMENT or CATALOG_SOURCE
-	operatorEnv := os.Getenv("OPERATOR_ENVIRONMENT")
+	// Determine catalog based on CATALOG_SOURCE or OPERATOR_ENVIRONMENT
 	catalogSource := os.Getenv("CATALOG_SOURCE")
+	operatorEnv := os.Getenv("OPERATOR_ENVIRONMENT")
 	var catalog string
 
-	// Priority 1: OPERATOR_ENVIRONMENT, Priority 2: CATALOG_SOURCE, Priority 3: default
+	// Priority 1: CATALOG_SOURCE, Priority 2: OPERATOR_ENVIRONMENT, Priority 3: default
 	switch {
+	case catalogSource != "":
+		catalog = catalogSource
+		log.Printf("Using catalog: %s (from CATALOG_SOURCE)", catalog) // #nosec G706
 	case operatorEnv != "":
 		switch operatorEnv {
 		case "pre-stage", "stage":
@@ -197,12 +200,9 @@ func FetchOlmSkipRange() (map[string]string, error) {
 			catalog = "redhat-operators"
 			log.Printf("OPERATOR_ENVIRONMENT unrecognized (%s), defaulting to catalog: redhat-operators", operatorEnv) // #nosec G706
 		}
-	case catalogSource != "":
-		catalog = catalogSource
-		log.Printf("Using catalog: %s (from CATALOG_SOURCE, OPERATOR_ENVIRONMENT not set)", catalog) // #nosec G706
 	default:
 		catalog = "redhat-operators"
-		log.Printf("Neither OPERATOR_ENVIRONMENT nor CATALOG_SOURCE set, defaulting to catalog: redhat-operators")
+		log.Printf("Neither CATALOG_SOURCE nor OPERATOR_ENVIRONMENT set, defaulting to catalog: redhat-operators")
 	}
 
 	// Fetch all package manifests from the selected catalog
